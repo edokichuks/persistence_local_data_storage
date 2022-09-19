@@ -1,10 +1,9 @@
 import 'dart:developer';
-import 'package:persistence_local_data_storage/src/model/contact.dart';
 
 import 'package:flutter/material.dart';
-
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistence_local_data_storage/src/constant/contact_key.dart';
+import 'package:persistence_local_data_storage/src/model/contact.dart';
 
 import '../../model/relationship.dart';
 import '../add_contact/add_contact_view.dart';

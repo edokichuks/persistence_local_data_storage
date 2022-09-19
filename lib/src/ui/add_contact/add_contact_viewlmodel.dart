@@ -16,6 +16,7 @@ class AddContactViewModel extends BaseViewModel {
   // int age = 0;
   // int phoneNumber = 0;
   // Relationship relationship = Relationship.Friend;
+  //final SnackbarService snackbarServices = locator<SnackbarService>();
 
   ///Form Submission
   Future<void> onFormSubmit(context) async {
@@ -25,6 +26,14 @@ class AddContactViewModel extends BaseViewModel {
         name: name!,
         phoneNumber: phoneNumber!,
         relationship: relationship!));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Contact Added Successfully',
+        ),
+        // backgroundColor: Colors.grey.shade300
+      ),
+    );
     Navigator.pop(context);
   }
 
@@ -40,12 +49,24 @@ class AddContactViewModel extends BaseViewModel {
 
   void onRelationshipChanged(Relationship? value) {
     relationship = value;
-    
+
     notifyListeners();
   }
 
   void onPhoneTextFieldChanged(String value) {
     phoneNumber = int.parse(value);
     notifyListeners();
+  }
+
+  void relationshipChecked(context) {
+    if (relationship == null) {
+      //log('${model.relationship} cannot be null');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Pls select a relationship'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

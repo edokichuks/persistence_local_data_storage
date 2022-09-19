@@ -1,7 +1,8 @@
-import 'package:persistence_local_data_storage/src/ui/add_contact/add_contact_viewlmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:persistence_local_data_storage/src/ui/add_contact/add_contact_viewlmodel.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../constant/validation.dart';
 import '../../model/relationship.dart';
 
 class AddContactView extends StatelessWidget {
@@ -14,6 +15,9 @@ class AddContactView extends StatelessWidget {
       viewModelBuilder: () => AddContactViewModel(),
       builder: (context, model, child) {
         return Scaffold(
+          appBar: AppBar(
+            title: const Text('Add a Contact'),
+          ),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Form(
@@ -25,6 +29,7 @@ class AddContactView extends StatelessWidget {
                     children: [
                       TextFormField(
                           autocorrect: true,
+                          validator: context.validateTextField,
                           initialValue: '',
                           decoration: const InputDecoration(
                             labelText: 'Name',
@@ -32,6 +37,7 @@ class AddContactView extends StatelessWidget {
                           onChanged: model.onNameChanged),
                       TextFormField(
                           keyboardType: TextInputType.number,
+                          validator: context.validateTextField,
                           initialValue: '',
                           maxLength: 3,
                           maxLengthEnforced: true,
@@ -41,6 +47,7 @@ class AddContactView extends StatelessWidget {
                           onChanged: model.onAgeChanged),
                       TextFormField(
                           keyboardType: TextInputType.phone,
+                          validator: context.validateTextField,
                           initialValue: '',
                           maxLength: 11,
                           maxLengthEnforced: true,
@@ -61,7 +68,12 @@ class AddContactView extends StatelessWidget {
                         onChanged: model.onRelationshipChanged,
                       ),
                       OutlineButton(
-                        onPressed: () => model.onFormSubmit(context),
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            model.relationshipChecked(context);
+                            model.onFormSubmit(context);
+                          }
+                        },
                         child: const Text('Submit'),
                       )
                     ],

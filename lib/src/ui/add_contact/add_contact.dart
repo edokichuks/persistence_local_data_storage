@@ -1,7 +1,7 @@
-import 'package:persistence_local_data_storage/src/constant/contact_key.dart';
-import 'package:persistence_local_data_storage/src/model/contact.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:persistence_local_data_storage/src/constant/contact_key.dart';
+import 'package:persistence_local_data_storage/src/model/contact.dart';
 
 import '../../model/relationship.dart';
 
@@ -88,7 +88,6 @@ class _AddContactState extends State<AddContact> {
                           child: Text(relationshipString[value].toString()),
                         );
                       }).toList(),
-                      
                       value: relationship,
                       hint: const Text('Relationship'),
                       onChanged: (value) {
