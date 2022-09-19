@@ -16,7 +16,7 @@ class ContactHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('My Contact List'),
+          title: const Text('My Contact Home List'),
           centerTitle: true,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.dark_mode))
@@ -26,7 +26,7 @@ class ContactHome extends StatelessWidget {
           valueListenable: Hive.box<Contact>(contactAppBox).listenable(),
           builder: (context, Box<Contact> box, child) {
             if (box.values.isEmpty) {
-              return const Center(child: Text('No Contacts Yet!\nAdd Up Now'));
+              return const Center(child: Text('No Contacts Yet!'));
             } else {
               return ListView.builder(
                   itemCount: box.values.length,
@@ -37,8 +37,7 @@ class ContactHome extends StatelessWidget {
                         relationshipString[currentContact!.relationship];
                     return Card(
                       clipBehavior: Clip.antiAlias,
-                      elevation: 3,
-                      color: Colors.teal,
+                      elevation: 10,
                       shadowColor: Colors.blueGrey,
                       child: InkWell(
                         onLongPress: () {
