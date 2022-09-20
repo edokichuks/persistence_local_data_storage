@@ -15,36 +15,32 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Box themeBox1 = Hive.box(contactAppTheme);
-    themeBox1.put('isDark', false);
-    log('The value of darkMode is ${themeBox1.get('isDark')}');
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         builder: (context, model, child) {
           return Scaffold(
               appBar: AppBar(
-                title: const Text('My Contact List'),
+                title: Text(model.homeAppTitle),
                 centerTitle: true,
                 actions: [
                   ValueListenableBuilder(
-                      valueListenable: themeBox1.listenable(),
-                      builder: (context, Box box, child) {
-                        final darkMode = box.get('isDark');
-                        return IconButton(
-                            onPressed: () {
-                              log('DarkMode: ${darkMode}');
-                              box.put('isDark', !darkMode);
-                            },
-                            icon: darkMode
-                                ? Icon(
-                                    Icons.light_mode,
-                                    color: Colors.grey.shade100,
-                                  )
-                                : Icon(
-                                    Icons.dark_mode,
-                                    color: Colors.grey.shade300,
-                                  ));
-                      })
+                    valueListenable: model.themeBox.listenable(),
+                    builder: (context, Box box, child) {
+                      final darkMode = model.themeBox.get('isDark');
+                      return IconButton(
+                        onPressed: model.toggleTheme,
+                        icon: darkMode
+                            ? Icon(
+                                Icons.light_mode,
+                                color: Colors.grey.shade100,
+                              )
+                            : Icon(
+                                Icons.dark_mode,
+                                color: Colors.grey.shade300,
+                              ),
+                      );
+                    },
+                  )
                 ],
               ),
               body: ValueListenableBuilder(
@@ -56,7 +52,6 @@ class HomeView extends StatelessWidget {
                     return ListView.builder(
                         itemCount: box.values.length,
                         itemBuilder: ((context, index) {
-                          ///Check this link of code
                           Contact? currentContact = box.getAt(index);
                           var relationship =
                               relationshipString[currentContact!.relationship];
