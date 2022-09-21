@@ -1,12 +1,12 @@
 import 'dart:developer';
-import 'package:persistence_local_data_storage/src/model/contact.dart';
-import 'package:persistence_local_data_storage/src/ui/add_contact.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:persistence_local_data_storage/src/constant/contact_key.dart';
+import 'package:persistence_local_data_storage/src/model/contact.dart';
 
-import '../model/relationship.dart';
+import '../../model/relationship.dart';
+import '../add_contact/add_contact_view.dart';
 
 class ContactHome extends StatelessWidget {
   ContactHome({Key? key}) : super(key: key);
@@ -15,14 +15,17 @@ class ContactHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('My Contact List'),
+          title: const Text('My Contact Home List'),
           centerTitle: true,
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.dark_mode))
+          ],
         ),
         body: ValueListenableBuilder(
           valueListenable: Hive.box<Contact>(contactAppBox).listenable(),
           builder: (context, Box<Contact> box, child) {
             if (box.values.isEmpty) {
-              return const Center(child: Text('No Contacts Yet'));
+              return const Center(child: Text('No Contacts Yet!'));
             } else {
               return ListView.builder(
                   itemCount: box.values.length,
@@ -33,7 +36,8 @@ class ContactHome extends StatelessWidget {
                         relationshipString[currentContact!.relationship];
                     return Card(
                       clipBehavior: Clip.antiAlias,
-                      elevation: 5,
+                      elevation: 10,
+                      shadowColor: Colors.blueGrey,
                       child: InkWell(
                         onLongPress: () {
                           log('On card pressed long');
@@ -74,7 +78,7 @@ class ContactHome extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              Text(currentContact.phoneNumber.toString()),
+                              Text('0' + currentContact.phoneNumber.toString()),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -95,6 +99,7 @@ class ContactHome extends StatelessWidget {
             }
           },
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Builder(
           builder: (context) {
             return FloatingActionButton(
@@ -102,7 +107,7 @@ class ContactHome extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => AddContact(),
+                      builder: (context) => AddContactView(),
                     ),
                   );
                 });

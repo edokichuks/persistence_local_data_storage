@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'contact_home.dart';
+import 'home/contact_home.dart';
 
 class ContactApp extends StatelessWidget {
   const ContactApp({Key? key}) : super(key: key);

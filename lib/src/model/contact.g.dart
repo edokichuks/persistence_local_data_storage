@@ -20,7 +20,7 @@ class ContactAdapter extends TypeAdapter<Contact> {
       age: fields[1] as int,
       name: fields[0] as String,
       phoneNumber: fields[2] as int,
-      relationship: fields[3] as dynamic,
+      relationship: fields[3] as Relationship,
     );
   }
 
