@@ -12,11 +12,6 @@ class AddContactViewModel extends BaseViewModel {
   int? age;
   int? phoneNumber;
   Relationship? relationship;
-  // String name = '';
-  // int age = 0;
-  // int phoneNumber = 0;
-  // Relationship relationship = Relationship.Friend;
-  //final SnackbarService snackbarServices = locator<SnackbarService>();
 
   ///Form Submission
   Future<void> onFormSubmit(context) async {
@@ -60,7 +55,6 @@ class AddContactViewModel extends BaseViewModel {
 
   void relationshipChecked(context) {
     if (relationship == null) {
-      //log('${model.relationship} cannot be null');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Pls select a relationship'),
