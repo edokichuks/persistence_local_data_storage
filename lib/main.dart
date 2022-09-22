@@ -4,7 +4,7 @@ import 'package:persistence_local_data_storage/src/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'src/app/app.router.dart';
-import 'src/constant/contact_key.dart';
+import 'src/constant/local_storage_keys.dart';
 import 'src/model/contact.dart';
 import 'src/model/relationship.dart';
 import 'src/ui/home/home_view.dart';
@@ -20,8 +20,8 @@ void main() async {
   Hive.registerAdapter(RelationshipAdapter());
 
   ///opening of boxes
-  await Hive.openBox<Contact>(contactAppBox);
-  await Hive.openBox(contactAppTheme);
+  await Hive.openBox<Contact>(LocalStorageKey.contactAppBox);
+  await Hive.openBox(LocalStorageKey.contactAppTheme);
 
   runApp(const ContactApp());
 }
@@ -31,7 +31,7 @@ class ContactApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Box themeBox = Hive.box(contactAppTheme);
+    Box themeBox = Hive.box(LocalStorageKey.contactAppTheme);
 
     return ValueListenableBuilder(
         valueListenable: themeBox.listenable(),

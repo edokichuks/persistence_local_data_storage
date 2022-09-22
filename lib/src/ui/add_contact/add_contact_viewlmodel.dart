@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../constant/contact_key.dart';
+import '../../constant/local_storage_keys.dart';
 import '../../model/contact.dart';
 import '../../model/relationship.dart';
 
@@ -15,7 +15,7 @@ class AddContactViewModel extends BaseViewModel {
 
   ///Form Submission
   Future<void> onFormSubmit(context) async {
-    Box<Contact> contactbox = Hive.box(contactAppBox);
+    Box<Contact> contactbox = Hive.box(LocalStorageKey.contactAppBox);
     await contactbox.add(Contact(
         age: age!,
         name: name!,

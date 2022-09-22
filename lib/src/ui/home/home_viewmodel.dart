@@ -5,15 +5,15 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../app/app.dart';
 import '../../app/app.router.dart';
-import '../../constant/contact_key.dart';
+import '../../constant/local_storage_keys.dart';
 import '../../model/contact.dart';
 
 class HomeViewModel extends BaseViewModel {
   String homeAppTitle = 'My Contact List';
   final navigator = locator<NavigationService>();
 
-  Box<Contact> appBox = Hive.box<Contact>(contactAppBox);
-  Box themeBox = Hive.box(contactAppTheme);
+  Box<Contact> appBox = Hive.box<Contact>(LocalStorageKey.contactAppBox);
+  Box themeBox = Hive.box(LocalStorageKey.contactAppTheme);
 
   void toggleTheme() {
     final darkMode = themeBox.get('isDark');
