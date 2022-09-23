@@ -1,14 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:persistence_local_data_storage/src/constant/contact_key.dart';
 import 'package:persistence_local_data_storage/src/ui/home/home_viewmodel.dart';
 import 'package:stacked/stacked.dart';
-
 import '../../model/contact.dart';
 import '../../model/relationship.dart';
-import '../add_contact/add_contact_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -133,14 +129,9 @@ class HomeView extends StatelessWidget {
               floatingActionButton: Builder(
                 builder: (context) {
                   return FloatingActionButton(
-                      child: const Icon(Icons.add),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => AddContactView(),
-                          ),
-                        );
-                      });
+                    child: const Icon(Icons.add),
+                    onPressed: model.navigateToAddContact,
+                  );
                 },
               ));
         });
