@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../constant/contact_key.dart';
+import '../../constant/local_storage_keys.dart';
 import '../../model/contact.dart';
 import '../../model/relationship.dart';
 
@@ -12,15 +12,10 @@ class AddContactViewModel extends BaseViewModel {
   int? age;
   int? phoneNumber;
   Relationship? relationship;
-  // String name = '';
-  // int age = 0;
-  // int phoneNumber = 0;
-  // Relationship relationship = Relationship.Friend;
-  //final SnackbarService snackbarServices = locator<SnackbarService>();
 
   ///Form Submission
   Future<void> onFormSubmit(context) async {
-    Box<Contact> contactbox = Hive.box(contactAppBox);
+    Box<Contact> contactbox = Hive.box(LocalStorageKey.contactAppBox);
     await contactbox.add(Contact(
         age: age!,
         name: name!,
@@ -60,7 +55,6 @@ class AddContactViewModel extends BaseViewModel {
 
   void relationshipChecked(context) {
     if (relationship == null) {
-      //log('${model.relationship} cannot be null');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Pls select a relationship'),
